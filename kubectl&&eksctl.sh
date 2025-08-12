@@ -55,11 +55,7 @@ echo "Installation of kubectl and eksctl completed successfully."
 # Install Matrix server for Horizontal Pod Autoscaler in k8s
 echo "Installing Horizontal Pod Autoscaler..."
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-if [ $? -ne 0 ]; then
-    echo "Failed to install Horizontal Pod Autoscaler. Please check your internet connection or the URL."
-    exit 1
-fi
-echo "Horizontal Pod Autoscaler installed successfully."
+
 
 # Install k9s
 echo "Installing k9s..."
