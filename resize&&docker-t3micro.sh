@@ -3,7 +3,7 @@
 #!/bin/bash
 lsblk
 # Resize the partitions and filesystems
-sudo growpart /nvme0n1/nvme0n1p4 # Resize the 4th partition
+sudo growpart /dev/nvme0n1 4 # Resize the 4th partition
 if [ $? -ne 0 ]
 then
     echo "Failed to resize the partition, please check the logs."
