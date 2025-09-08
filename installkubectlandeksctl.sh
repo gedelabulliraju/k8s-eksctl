@@ -6,17 +6,12 @@ curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.33.3/2025-08-03/bin/linu
 sha256sum -c kubectl.sha256
 chmod +x ./
 mv kubectl /usr/local/bin/kubectl
-
-echo "kubectl installed successfully."
-kubectl version
-
-echo "Moving kubectl to /usr/local/bin..."
-sudo mv kubectl /usr/local/bin/kubectl
 if [ $? -ne 0 ]; then
     echo "Failed to move kubectl to /usr/local/bin. Please check permissions."
     exit 1
 fi
 echo "kubectl moved successfully."
+echo "kubectl installed successfully."
 echo "Installing eksctl..."
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
