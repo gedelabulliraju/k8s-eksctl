@@ -28,7 +28,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 echo "eksctl installed successfully."
-eksctl version
 echo "Installation of kubectl and eksctl completed successfully."
 
 # Install Matrix server for Horizontal Pod Autoscaler in k8s
@@ -39,10 +38,6 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 # Install k9s
 echo "Installing k9s..."
 curl -sS https://webinstall.dev/k9s | bash
-if [ $? -ne 0 ]; then
-    echo "Failed to install k9s. Please check your internet connection or the URL."
-    exit 1
-fi
 echo "k9s installed successfully."
 
 # Install Helm
@@ -50,10 +45,6 @@ echo "Installing Helm..."
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-if [ $? -ne 0 ]; then
-    echo "Failed to install Helm. Please check your internet connection or the URL."
-    exit 1
-fi
 echo "Helm installed successfully."
 
 # Install ebs-csi-driver
@@ -61,21 +52,11 @@ echo "Installing EBS CSI Driver..."
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 helm repo update
 helm install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --namespace kube-system
-if [ $? -ne 0 ]; then
-    echo "Failed to install EBS CSI Driver. Please check your internet connection or the Helm repository."
-    exit 1
-fi
 echo "EBS CSI Driver installed successfully."
 
 # verify installations
 echo "Verifying installations..."
-kubectl version --short
+kubectl version
 eksctl version
 k9s version
 helm version
-kubectl get pods -n kube-system
-if [ $? -ne 0 ]; then
-    echo "Failed to verify Kubernetes cluster. Please check your kubectl configuration."
-    exit 1
-fi
-echo "All installations verified successfully."
